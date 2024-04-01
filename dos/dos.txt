@@ -1,2 +1,8 @@
 - Briefly explain the vulnerability and why the secure version prevents the vulnerability.
 - What additional security mechanisms can you incorporate to prevent such attacks?
+
+The vulnerability described stems from the lack of error handling when performing a database lookup using .findOne() based on an ID without proper validation or error catching mechanisms in place. In MongoDB, attempting to execute .findOne() with an ID through a regular expression can lead to system crashes, especially when malformed queries, like id[$ne], are sent. This can be exploited to perform Denial of Service (DOS) attacks by crashing the system intentionally.
+
+The secured version of the code addresses this issue by implementing a graceful exit strategy during database lookups. This approach ensures that the system can handle errors or malformed queries without crashing, thereby mitigating the risk of DOS attacks.
+
+To further enhance security against such attacks, additional measures can include implementing rate limiting. This can be achieved through middleware that restricts the number of requests a user can make within a certain timeframe, such as allowing only a limited number of requests every 30 seconds. This limits the potential for overloading the system with excessive requests, thus providing an additional layer of protection against DOS attacks.
