@@ -1,3 +1,15 @@
 Briefly explain the vulnerability and why the secure version prevents the vulnerability.
 Which CIA property does tampering violate?
 What additional security mechanisms can you incorporate?
+
+The vulnerability arises from the direct use of user-provided inputs in database queries without any form of input sanitization. This allows attackers to manipulate the query by injecting executable conditions, leading to unauthorized access to sensitive information. Essentially, the attack exploits the unvalidated input to execute unintended actions in the database, known as tampering, resulting in information disclosure.
+
+To counteract this vulnerability, the secure version implements input sanitization measures. It removes any characters from the input that could potentially be used to form executable code or scripts, focusing on stripping away anything that isn't a letter or a space. This precaution helps ensure that only valid, non-malicious input is processed, thereby preventing tampering and subsequent information disclosure.
+
+The violation of confidentiality is the primary concern here, as tampering aimed at information disclosure breaches the CIA (Confidentiality, Integrity, Availability) principle of confidentiality. Such breaches expose sensitive data to unauthorized parties, compromising privacy and security.
+
+To bolster security further and mitigate these vulnerabilities, several strategies can be adopted:
+
+Passwords should be stored using secure hashing algorithms to prevent their exposure even if database access is compromised.
+Implementing HTTPS ensures that data transmitted between the client and server is encrypted, protecting it from interception during transit.
+Enhancing session security by not solely relying on cookies, which can be vulnerable to theft or misuse. Utilizing mechanisms like two-factor authentication or JWT (JSON Web Tokens) for session management can provide a more secure way to handle user sessions by storing session information in a more secure manner, such as in the client's application state rather than in easily accessible cookies. These measures collectively strengthen the application's defense against tampering and information disclosure attacks.
