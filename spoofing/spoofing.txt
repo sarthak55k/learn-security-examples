@@ -1,1 +1,14 @@
-Briefly explain the vulnerability and why the secure version prevents the vulnerability.
+- Briefly explain the vulnerability and why the secure version is better at preventing repudiation than the insecure version.
+- What additional security mechanisms can you incorporate to prevent such attacks?
+
+The vulnerability identified is the absence of a logging mechanism for tracking interactions with the system, which makes it challenging to prove (or repudiate) actions taken by users. Without logs, it's difficult to ascertain who did what, making accountability nearly impossible, especially in scenarios of minimal or ineffective authentication.
+
+The secure version addresses this by implementing logging for all public-facing endpoints. This means that every request made to the system is recorded in a server log file (server.log), creating a historical record of interactions. This log serves as an audit trail that can be analyzed for abnormal or unauthorized activities, enhancing the system's ability to detect and respond to security incidents. By employing middleware for logging, secure.js ensures that actions are traceable, significantly improving the system's resilience against repudiation attacks, where an attacker denies their actions.
+
+To further strengthen the system against such vulnerabilities, additional security measures can be introduced:
+
+An audit trail mechanism that goes beyond basic logging to include detailed records of user actions, timestamps, and the outcome of each action. This comprehensive tracking can help in forensic analysis and in identifying the scope of a security breach.
+Implementing robust authentication mechanisms, including two-factor authentication, to ensure that only authorized users can perform actions, thereby reducing the risk of unauthorized access and actions.
+Regular monitoring and analysis of log files to quickly identify and mitigate unauthorized or suspicious activities. Automated tools can be used to flag anomalies and alert administrators in real time.
+Ensuring the integrity and security of log files themselves, to prevent tampering or deletion by attackers seeking to cover their tracks. This might include write-once media or secure, remote logging facilities.
+Together, these strategies enhance accountability and traceability within the system, making it more difficult for attackers to deny their actions and for unauthorized activities to go unnoticed.
